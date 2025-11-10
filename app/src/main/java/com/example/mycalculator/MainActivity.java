@@ -1,6 +1,7 @@
 package com.example.mycalculator;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
+import com.example.mycalculator.ExpressionPreprocessor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Included code, should be modified
             String result = null;
             try {
-                result = ExpressionEvaluator.evaluate(text_display.getText().toString());
+                result = ExpressionEvaluator.evaluate(ExpressionPreprocessor.preprocess(text_display.getText().toString()));
                 text_display.setText(result);
             } catch (Exception e) {
                 // Debug message below do not print.
