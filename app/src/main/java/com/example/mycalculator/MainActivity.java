@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Included code, should be modified
             String result = null;
             try {
-                result = evaluate(text_display.getText().toString());
+                result = ExpressionEvaluator.evaluate(text_display.getText().toString());
                 text_display.setText(result);
             } catch (Exception e) {
                 // Debug message below do not print.
@@ -108,25 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Lastly, checks and clears the display
         } else if (v.getId() == R.id.btn_clear){
             clear_display();
-        }
-    }
-
-    private String evaluate(String expression) throws Exception {
-        String processedExpression = expression
-                .replace("×", "*")
-                .replace("÷", "/");
-        
-        Expression expr = new ExpressionBuilder(processedExpression).build();
-        Double result = expr.evaluate();
-
-        // Check if the result is effectively an integer
-        if (result == Math.floor(result) && !Double.isInfinite(result)) {
-            return String.valueOf(result.longValue());
-        } else {
-            BigDecimal decimal = new BigDecimal(result);
-            decimal = decimal.setScale(10, BigDecimal.ROUND_HALF_UP);
-
-            return decimal.stripTrailingZeros().toPlainString();
         }
     }
 
